@@ -5,15 +5,15 @@
         
         <!-- ENCABEZADO MENU: -->
         <div class="encabezado-menu-banner col-xs-12" id="encabezado-menu-banner-{{menu.id}}" ng-mouseenter="overMenu($event,menu.id)">
-            {{menu.nombre + " | " + menu.id}}
+            {{menu.nombre}}
         </div>
         
         <!-- WRAP LISTADO MENU ITEMS:--> 
         <div class="wrap-listado-menu" hidden id="wrap-listado-menu-{{menu.id}}">
         
             <!-- LISTADO MENU ITEMS:-->
-            <div class="items-menu" ng-repeat="itemMenu in menu.itemsList">
-                <a href="{{itemMenu.url}}">{{itemMenu.nombre}}</a>
+            <div class="items-menu" ng-repeat="itemMenu in menu.itemsList" ng-click="redireccionamiento(itemMenu.url)">
+                {{itemMenu.nombre}}
             </div>
         </div>
         
@@ -53,12 +53,18 @@
     }
     .encabezado-menu-banner:hover
     {
-        background-color:#e74c3c;
+        background-color:#f39c12;
+        color:white;
+    }
+    .encabezado-menu-banner-over
+    {
+        background-color:#f39c12;
         color:white;
     }
     .wrap-listado-menu
     {
-        background-color: rgba(0,0,0,0.45);
+        //background-color: rgba(0,0,0,0.45);
+        background-color:#f39c12;
         color:white;
         text-align: center;
         margin-top:40px;
@@ -66,6 +72,12 @@
     .items-menu
     {
         padding: 12px;
-        border:solid 2px black;
+        cursor:pointer;
+        //border:solid 2px black;
+    }
+    .items-menu:hover
+    {
+        background-color:white;
+        color:#f39c12;
     }
 </style>

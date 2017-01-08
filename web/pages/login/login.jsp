@@ -50,10 +50,6 @@
                     "usr": $scope.usr,
                     "pass": $scope.pass
                 },
-                beforeSend: function (xhr) 
-                {
-                    $scope.passIncorrecto = true;
-                },
                 success: function (resultado, textStatus, jqXHR) 
                 {
                     console.log("resultado logearse: " + resultado );

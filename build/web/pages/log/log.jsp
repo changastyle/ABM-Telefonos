@@ -64,6 +64,9 @@
 
     app.controller('log', function($scope, $rootScope) 
     {
+        //LINEA PARA TENER UN USUARIO LOGEADO EN ANGULAR Y PODER MOSTRAR Y OCULTAR CIERTAS COSAS:
+        $scope.usuarioLogeado = <%= usrJSON %>;
+        
         $scope.arrIntentosLogeo = [];
         $scope.init = function()
         {

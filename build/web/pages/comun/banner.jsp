@@ -12,16 +12,17 @@
         padding: 0px;
         position: fixed;
         top:0px;
+        background-color:#f39c12;
         //overflow: hidden;
     }
     .body-comun
     {
-        border:solid 2px black;
         margin-top: 120px;
+        background-color:#ecf0f1;
     }
     .banner-parts
     {
-        border:solid 2px black;
+        //border:solid 2px black;
         height: 80px;
     }
 </style>

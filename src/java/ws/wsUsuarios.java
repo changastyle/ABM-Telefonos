@@ -1,5 +1,6 @@
 package ws;
 
+import com.google.gson.Gson;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class wsUsuarios 
 {
+    public static final Usuario usuarioEmpty = new Usuario();
     @RequestMapping(value = "findUsuarios")
     public static List<Usuario> findUsuarios()
     {
@@ -49,16 +51,64 @@ public class wsUsuarios
             
             //REPORTO QUE ALGUIEN SE LOGEO CORRECTAMENTE:
             LogeoCorrecto logeoCorrecto = new LogeoCorrecto(new Date(), usuario,direccionIPUsuario);
-            daos.DAOEclipse.save(logeoCorrecto);
+            daos.DAOEclipse.update(logeoCorrecto);
         }
         else
         {
             //REPORTO QUE ALGUIEN SE INTENTO LOGEAR Y NO PUDO:
             IntentoLogeo intentoLogeo = new IntentoLogeo(usr, pass, new Date(),direccionIPUsuario);
-            daos.DAOEclipse.save(intentoLogeo);
+            daos.DAOEclipse.update(intentoLogeo);
         }
         
         return seLogeo;
     }
+    @RequestMapping(value = "exit")
+    public static boolean exit(HttpServletRequest request, HttpServletResponse response)
+    {
+        boolean salio = false;
+        
+        request.getSession().setAttribute("usuario", usuarioEmpty.toJSON());
+       // response.sendRedirect("../comun/login.jsp");
+            
+        salio = true;
+        
+        return salio;
+    }
+    
+    public static Usuario getUsuario(int id)
+    {
+        Usuario usuario = null;
+        
+        for(Usuario userLoop : findUsuarios())
+        {
+            if(userLoop.getId() == id)
+            {
+                usuario = userLoop;
+            }
+        }
+        
+        return usuario;
+    }
+    
+    @RequestMapping(value = "cambiarPass")
+    public static boolean cambiarPass(@RequestParam(value = "usuario")String strUsuario, @RequestParam(value = "pass") String pass ,HttpServletResponse response)
+    {
+        boolean cambio = false;
+        
+        
+        
+        Usuario usuarioRecibido = new Gson().fromJson(strUsuario, Usuario.class);
+        Usuario usuarioDB = getUsuario(usuarioRecibido.getId());
+        
+        usuarioDB.setPass(pass);
+        daos.DAOEclipse.update(usuarioDB);
+        cambio = true;
+        
+        System.out.println("Usuario " + usuarioDB.getNombre() + " cambio la pass @ " + pass);
+        
+        
+        return cambio;
+    }
+    
     
 }
