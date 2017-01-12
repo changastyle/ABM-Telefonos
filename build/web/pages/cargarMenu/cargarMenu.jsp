@@ -8,7 +8,7 @@
         <%@include file="../comun/head.jsp" %>
         <%@include file="../comun/session.jsp" %>
     </head>
-     <body ng-app="app" ng-controller="cargarMenu" ng-init="init()" ng-cloack class="body-comun">
+    <body ng-app="app" ng-controller="cargarMenu" ng-init="init()" class="body-comun" ng-cloak>
          
         <%@include file="../comun/banner.jsp"%>
         
@@ -16,68 +16,26 @@
         
         <div class="container">
             
-            <!-- IZQ CARGAR MENU:-->
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="padding-left:0px;">
-                <div class="cargar-menu-izq col-xs-12 partes-cargar-menu">
-
-                    <!-- LISTADO ENCABEZADOS MENU:-->
-                    <div class="wrap-item-encabezado-menu col-xs-12" ng-repeat="menu in arrMenusBanner">
-                        
-                        <!-- NOMBRE MENU:-->
-                        <div class="item-encabezado-menu col-xs-9 col-sm-9 col-md-9 col-lg-10"  ng-click="selectMenu(menu,$event)">
-                            {{menu.nombre}}
-                        </div>
-                        
-                        <!-- LAPIZ y TACHO MENU:-->
-                        <div class="wrap-btn-edit-encabezado-menu col-xs-3 col-sm-3 col-md-3 col-lg-2">
-                            <button class="btn btn-default" ng-click="openEditMenu(menu)">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </button>
-                            <button class="btn btn-danger" ng-click="rmMenu(menu)">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </button>
-                        </div>
-                        
-                    </div>
-
-                </div>
-            </div>
+            <%@include  file="menusIzq.jsp" %>
             
-            <!-- DER CARGAR MENU:-->
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="padding-right:0px;">
-                <div class="cargar-menu-der col-xs-12 partes-cargar-menu">
-
-                    <!-- LISTADO SUB MENUS:-->
-                    <div class="item-sub-menu" ng-repeat="submenu in menuEditando.itemsList" ng-click="selectSubMenu(submenu,$event)">
-                        {{submenu.nombre}}
-                    </div>
-                </div>
-            </div>
+            <%@include file="subMenusDer.jsp" %>
             
-            <div class="col-xs-12 wrap-botonera-add">
-                <!-- BOTONERA ADD:-->
-                <div class="botonera-add">
-
-                    <!-- BTN ADD MENU:-->
-                    <div class="col-xs-6" style="padding-left: 0px;">
-                        <button class="btn btn-success col-xs-12" ng-click='openAddMenu()'>
-                            <span class="glyphicon glyphicon-plus"></span> 
-                            ADD MENU
-                        </button>
-                    </div>
-
-                    <!-- BTN ADD ITEM MENU-->
-                    <div class="col-xs-6" style="padding-right: 0px;" >
-                        <button class="btn btn-success col-xs-12" ng-disabled="menuEditando.id == null" ng-click='openItemMenu()'>
-                        <span class="glyphicon glyphicon-plus"></span> 
-                        ADD ITEM MENU
-                    </button>
-                    </div>
-                </div>
+            <%@include file="botonera-add-menu-and-menuItem-bottom.jsp" %>
+            
+            <!-- INFO EDICION:-->
+            <div class="info-edicion col-xs-12">
+                <label class="labels-info-edicion">Menu Seleccionado: </label>{{menuEditando}}
+                <br>
+                <label class="labels-info-edicion">Sub Menu Seleccionado: </label>{{subMenuEditando}}
+                <br>
+                <label class="labels-info-edicion">Modo Edicion Menu : </label>{{modoEdicionMenu}}
+                <br>
+                <label class="labels-info-edicion">Modo Edicion SUB Menu : </label>{{modoEdicionItemMenu}}
             </div>
     </div>
         
-        {{menuEditando}}
+            
+        
         <%@include file="modal-menu.jsp" %>
         <%@include file="modal-item-menu.jsp" %>
     </body>
@@ -99,37 +57,41 @@
         {
             $rootScope.findMenus();
         }
-        $scope.selectMenu = function(menu,$event)
+        $scope.selectMenu = function(menu)
         {
             $scope.menuEditando = menu;
             
-            console.log($event.target);
+            //console.log($event.target);
+            console.log(menu.id);
             
             //DESPINTO TODOS:
-            $(".item-encabezado-menu").each(function(index,element)
+            $(".wrap-item-encabezado-menu-selected").each(function(index,element)
             {
-                //$(element).removeClass("item-encabezado-menu-selected");
-                $($event.target).css("background-color","#f39c12");
+                $(element).removeClass("wrap-item-encabezado-menu-selected");
+                $(element).addClass("wrap-item-encabezado-menu");
             });
             
             //PINTO EL QUE NECESITO:
-            //$($event.target).addClass("item-encabezado-menu-selected");
-            $($event.target).css("background-color","#16a085");
+            $("#wrap-item-encabezado-menu-" + menu.id).removeClass("wrap-item-encabezado-menu");
+            $("#wrap-item-encabezado-menu-" + menu.id).addClass("wrap-item-encabezado-menu-selected");
         }
-        $scope.selectSubMenu = function(subMenu,$event)
+        $scope.selectSubMenu = function(subMenu)
         {
             $scope.subMenuEditando = subMenu;
             
             $(".wrap-sub-menu-editando").show();
             
             //DESPINTO TODOS:
-            $(".item-sub-menu").each(function(index,element)
+            $(".item-submenus-selected").each(function(index,element)
             {
-                $(element).removeClass("item-sub-menu-selected");
+                $(element).removeClass("item-submenus-selected");
+                $(element).addClass("item-submenus");
             });
             
             //PINTO EL QUE NECESITO:
-            $($event.target).addClass("item-sub-menu-selected");
+            $("#item-submenus-" + subMenu.id).removeClass("item-submenus");
+            $("#item-submenus-" + subMenu.id).addClass("item-submenus-selected");
+            
         }
         $scope.cleanSubMenuEditando = function()
         {
@@ -150,6 +112,13 @@
             $scope.menuEditando = menu;
             
             $("#modal-add-menu").modal();
+        }
+        $scope.openEditSubMenu = function(subMenu)
+        {
+            $scope.modoEdicionItemMenu = true;
+            $scope.subMenuEditando = subMenu;
+            
+            $("#modal-item-menu").modal();
         }
         $scope.closeModalMenu = function()
         {
@@ -288,6 +257,28 @@
                 });
             }
         }
+        $scope.editItemMenu  = function()
+        {
+            $.ajax(
+            {
+               url:"../../editItemMenu",
+               data:
+               {
+                   "idItemMenu": $scope.subMenuEditando.id,
+                   "nombre": $scope.subMenuEditando.nombre,
+                   "url":  $scope.subMenuEditando.url,
+                   "fkMenu": $scope.menuEditando.id
+               },success: function (resultado, textStatus, jqXHR)
+               {
+                    console.log("resultado edit item menu: " + resultado);
+                    
+                    if(resultado)
+                    {
+                        window.location.reload();
+                    }
+               }
+            });
+        }
     });
     </script>
     <style>
@@ -297,12 +288,7 @@
         background-color:white;
         border-radius: 6px;
     }
-    
-    .item-encabezado-menu-selected
-    {
-        background-color: #16a085;
-    }
-    .item-sub-menu
+    /*.wrap-item-sub-menu
     {
         text-align: center;
         background-color:#f39c12;
@@ -311,17 +297,17 @@
         margin-top:8px;
         cursor:pointer;
         font-weight: bold;
-    }
+    }*/
     .item-sub-menu-selected
     {
         background-color: #16a085;
     }
-    .wrap-sub-menu-editando{
+    /*.wrap-sub-menu-editando{
         background-color:white;
         border-radius: 6px;
         padding: 12px;
         margin-top: 25px;
-    }
+    }*/
     .wrap-botonera-add{
         background-color:white;
         border-radius: 6px;
@@ -336,12 +322,12 @@
         font-family: font-family: 'Source Sans Pro', sans-serif;
     }
     
-    .nombre-sub-menu-editando
+   /* .nombre-sub-menu-editando
     {
         text-align: center;
         font-weight: bolder;
         font-size: 22px;
-    }
+    }*/
     .btn-clean-sub-menu-editando{
         float: right;
         
@@ -351,14 +337,23 @@
        // border:solid 2px black;
         margin-top:8px;
         padding:0px;
-        border:solid 1px #3c3c3c;
+        background-color:#f39c12;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    .wrap-item-encabezado-menu-selected
+    {
+       // border:solid 2px black;
+        margin-top:8px;
+        padding:0px;
+        background-color: var(--rojo);
         border-radius: 6px;
         overflow: hidden;
     }
     .item-encabezado-menu
     {
         text-align: center;
-        background-color:#f39c12;
+        //background-color:#f39c12;
         color:white;
         padding:12px;
         cursor:pointer;
@@ -366,14 +361,36 @@
         display: inline-block;
         
     }
+    /*.item-encabezado-sub-menu
+    {
+        text-align: center;
+        //background-color:#f39c12;
+        color:white;
+        padding:12px;
+        cursor:pointer;
+        font-weight: bold;
+        display: inline-block;
+        
+    }*/
     .wrap-btn-edit-encabezado-menu
     {
         display: inline-block;
-        background-color:white;
+        //background-color:white;
         padding:0px;
-        padding-top:4px;
+        padding-top:6px;
+        padding-bottom:4px;
         text-align: center;
     }
-    
+    .info-edicion
+    {
+        border-radius: 6px;
+        border:solid 1px var(--gris);
+        background-color:var(--blanco);
+        margin-top:25px;
+    }
+    .labels-info-edicion
+    {
+        font-weight: bold;
+    }
     </style>
 </html>

@@ -1,0 +1,12 @@
+:root{
+    --main-color:#F39C12;
+    --blanco:#FFFFFF;
+    --rojo:#C41230;
+    --gris:#ECF0F1;
+}
+
+/*COMO USARLO:
+#foo{
+    color: var(--main-color);
+    background-color: var(--blanco);
+}*/

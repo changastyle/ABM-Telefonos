@@ -1,4 +1,4 @@
-<div class="banner-izq banner-parts col-xs-4" ng-click="redireccionamiento('../home/home.jsp')"></div>
+<div class="banner-izq banner-parts hidden-xs col-sm-4 col-md-4 col-lg-4" ng-click="redireccionamiento('../home/home.jsp')"></div>
 
 <style> 
 .banner-izq

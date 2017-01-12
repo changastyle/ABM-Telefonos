@@ -4,8 +4,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" ng-click="closeModalItemMenu()">&times;</button>
-                <h4 class="modal-title" ng-hide="modoEdicionMenu">ADD ITEM MENU</h4>
-                <h4 class="modal-title" ng-show="modoEdicionMenu">EDIT ITEM MENU</h4>
+                <h4 class="modal-title" ng-hide="modoEdicionItemMenu">ADD ITEM MENU</h4>
+                <h4 class="modal-title" ng-show="modoEdicionItemMenu">EDIT ITEM MENU</h4>
             </div>
             <div class="modal-body">
                 
@@ -22,8 +22,8 @@
             </div>
         
             <div class="modal-footer">
-                <button type="button" class="btn btn-success col-xs-12" data-dismiss="modal" ng-hide="modoEdicionMenu" ng-click='addItemMenu()'>Add Item Menu</button>
-                <button type="button" class="btn btn-primary col-xs-12" data-dismiss="modal" ng-show="modoEdicionMenu" ng-click='editItemMenu()'>Edit Item Menu</button>
+                <button type="button" class="btn btn-success col-xs-12" data-dismiss="modal" ng-hide="modoEdicionItemMenu" ng-click='addItemMenu()'>Add Item Menu</button>
+                <button type="button" class="btn btn-primary col-xs-12" data-dismiss="modal" ng-show="modoEdicionItemMenu" ng-click='editItemMenu()'>Edit Item Menu</button>
             </div>
         </div>
     </div>

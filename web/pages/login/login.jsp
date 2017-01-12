@@ -13,7 +13,7 @@
            
             <div class="form-group">
                 <label>Usuario:</label>
-                <input type="text" class="form-control" ng-model="usr">
+                <input type="text" class="form-control" ng-model="usr" >
             </div>
             <div class="form-group">
                 <label>Contraseña:</label>

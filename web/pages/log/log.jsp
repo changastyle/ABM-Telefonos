@@ -13,7 +13,7 @@
         <%@include file="../comun/head.jsp" %>
         <%@include file="../comun/session.jsp" %>
     </head>
-    <body ng-app="app" ng-controller="log" ng-init="init()" ng-cloack class="body-comun">
+    <body ng-app="app" ng-controller="log" ng-init="init()" class="body-comun" ng-cloak>
         
         <%@include file="../comun/banner.jsp"%>
         

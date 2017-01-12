@@ -13,6 +13,7 @@
         position: fixed;
         top:0px;
         background-color:#f39c12;
+        z-index: 1000;
         //overflow: hidden;
     }
     .body-comun
