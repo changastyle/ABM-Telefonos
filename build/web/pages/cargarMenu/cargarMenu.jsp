@@ -202,7 +202,7 @@
         //ITEM MENU ABM:
         $scope.openItemMenu = function(itemMenu)
         {
-            $scope.modoEdicionItemMenu = true;
+            //$scope.modoEdicionItemMenu = true;
             $scope.subMenuEditando = itemMenu;
             
             $("#modal-item-menu").modal();

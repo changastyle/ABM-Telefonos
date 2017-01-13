@@ -15,9 +15,12 @@
         <%@include file="../comun/session.jsp" %>
     </head>
     <body ng-app="app" ng-controller="home" ng-init="init()" class="body-comun" ng-cloak>
-         <%@include file="../comun/banner.jsp"%>
+        
+        <%@include file="../comun/banner.jsp"%>
         <h1>Home!</h1>
-        {{usuarioLogeado}}
+        
+        
+        <!-- Usuario Logeado: {{usuarioLogeado}} -->
     </body>
     <script>
     //app = angular.module('app', []);

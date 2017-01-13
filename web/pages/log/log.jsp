@@ -17,46 +17,66 @@
         
         <%@include file="../comun/banner.jsp"%>
         
-        <h1>LOG</h1>
+        <!-- CONTAINER QUE CENTRA EL CONTENIDO DE LA WEB: -->
+        <div class="container">
+            
+        
+            <!-- TABLE INGRESOS FALLIDOS:-->
+            <div class="panel panel-default" style="margin-top:25px">
+
+                <div class="panel-heading">
+                    Ingresos Fallidos
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <th>Timestamp</th>
+                        <th>Usuario que probo</th>
+                        <th>Pass que probo</th>
+                        <th>Direccion IP</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="itemIntentosLogeo in arrIntentosLogeo">
+                            <td>{{itemIntentosLogeo.timestamp | date: "dd/MM/yyyy - HH:mm:ss"}}</td>
+                            <td>{{itemIntentosLogeo.nombreUsuarioQueProbo}}</td>
+                            <td>{{itemIntentosLogeo.passQueProbo}}</td>
+                            <td>{{itemIntentosLogeo.direccionIP}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- INGRESOS CORRECTOS: -->
+            <!-- TABLE INGRESOS FALLIDOS:-->
+            <div class="panel panel-default" style="margin-top:25px">
+
+                <div class="panel-heading">
+                    Ingresos Correctos
+                </div>
+                
+                <table class="table">
+                    <thead>
+                        <th ng-click="cambiarFiltroIngresosCorrectos('nombre')">Usuario </th>
+                        <th ng-click="cambiarFiltroIngresosCorrectos('timestamp')">Fecha</th>
+                        <th>Hora</th>
+                        <th ng-click="cambiarFiltroIngresosCorrectos('permisos')">Permisos</th>
+                        <th ng-click="cambiarFiltroIngresosCorrectos('direccionIP')">Direccion IP</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="itemIngresosCorrecto in arrIngresosCorrectos | orderBy: filtroIngresosCorrectos ">
+                            <td>{{itemIngresosCorrecto.usuarioQueSeLogeo.nombre}}</td>
+                            <td>{{itemIngresosCorrecto.timestamp | date: "dd/MM/yyyy"}}</td>
+                            <td>{{itemIngresosCorrecto.timestamp | date: "HH:mm:ss"}}</td>
+                            <td>{{itemIngresosCorrecto.usuarioQueSeLogeo.permisos}}</td>
+                            <td>{{itemIngresosCorrecto.direccionIP}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         
         
-        <!-- INGRESOS FALLIDOS:-->
-        <h1>Ingresos Fallidos:</h1>
-        <table class="table">
-            <thead>
-                <th>Timestamp</th>
-                <th>Usuario que probo</th>
-                <th>Pass que probo</th>
-                <th>Direccion IP</th>
-            </thead>
-            <tbody>
-                <tr ng-repeat="itemIntentosLogeo in arrIntentosLogeo">
-                    <td>{{itemIntentosLogeo.timestamp | date: "dd/MM/yyyy - HH:mm:ss"}}</td>
-                    <td>{{itemIntentosLogeo.nombreUsuarioQueProbo}}</td>
-                    <td>{{itemIntentosLogeo.passQueProbo}}</td>
-                    <td>{{itemIntentosLogeo.direccionIP}}</td>
-                </tr>
-            </tbody>
-        </table>
         
-        <!-- INGRESOS CORRECTOS: -->
-        <h1>Ingresos Correctos</h1>
-        <table class="table">
-            <thead>
-                <th>Timestamp</th>
-                <th>Usuario </th>
-                <th>Permisos</th>
-                <th>Direccion IP</th>
-            </thead>
-            <tbody>
-                <tr ng-repeat="itemIngresosCorrecto in arrIngresosCorrectos">
-                    <td>{{itemIngresosCorrecto.timestamp | date: "dd/MM/yyyy - HH:mm:ss"}}</td>
-                    <td>{{itemIngresosCorrecto.usuarioQueSeLogeo.nombre}}</td>
-                    <td>{{itemIngresosCorrecto.usuarioQueSeLogeo.permisos}}</td>
-                    <td>{{itemIngresosCorrecto.direccionIP}}</td>
-                </tr>
-            </tbody>
-        </table>
     </body>
     
     <script>
@@ -66,6 +86,7 @@
     {
         //LINEA PARA TENER UN USUARIO LOGEADO EN ANGULAR Y PODER MOSTRAR Y OCULTAR CIERTAS COSAS:
         $scope.usuarioLogeado = <%= usrJSON %>;
+        $scope.filtroIngresosCorrectos = "nombre";
         
         $scope.arrIntentosLogeo = [];
         $scope.init = function()
@@ -108,6 +129,11 @@
                 }
             });
         }
+        $scope.cambiarFiltroIngresosCorrectos = function(filtroPor)
+        {
+            $scope.filtroIngresosCorrectos = filtroPor;
+            console.log("cambiando filtro de ingresos correctos @ " + filtroPor);
+        }
     });
     </script>
     
@@ -119,6 +145,7 @@
         .table th
         {
             text-align: center;
+            cursor: pointer;
         }
     </style>
 </html>

@@ -5,7 +5,9 @@
         <title>Mi Cuenta</title>
     </head>
     <body ng-app="app" ng-controller="cuenta" ng-init="init()" ng-cloack class="body-comun">
+        
         <%@include file="../comun/banner.jsp"%>
+        
         <h3>Cambiar Password</h3>
         <div class="container">
             <div class="form-group">
