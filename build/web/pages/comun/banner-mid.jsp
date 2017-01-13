@@ -8,7 +8,7 @@
         <div class="input-group-btn">
             
             <!-- BUT HAMB BARRA BUSQUEDA:-->
-            <button type="button" class="btn btn-default" aria-label="Bold">
+            <button type="button" class="btn btn-default" aria-label="Bold" ng-click='toggleBarraLateral()'>
                 <span class="glyphicon glyphicon glyphicon-menu-hamburger"></span>
             </button>
         </div>

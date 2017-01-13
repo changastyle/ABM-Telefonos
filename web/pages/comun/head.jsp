@@ -4,6 +4,9 @@
 <!-- THEME COLOR:-->
 <meta name="theme-color" content="#db5945">
 
+<!-- FAVICON TAG:-->
+<link rel="icon" href="../res/img/favicon.png" />
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
@@ -83,6 +86,25 @@ app = angular.module('app',[]).run(function($rootScope)
                 }
             }
         });
+    }
+    
+    //METODOS BARRA MENU LATERAL:
+    $rootScope.mostrarHijosMenuLateral = function(menu)
+    {
+        console.log("mostrarHijosMenuLateral: " +menu.id );
+        //OCULTO TODOS:
+        $(".wrap-hijos-menu-lateral").each(function(index,element)
+        {
+            $(element).hide();
+        });
+        
+        //MUESTRO EL QUE QUIERO:
+        $("#wrap-hijos-menu-lateral-" + menu.id).show();
+    }
+    //METODO TOOGLE BARRA MENU LATERAL:
+    $rootScope.toggleBarraLateral = function()
+    {
+        $(".menu-lateral").toggle();
     }
 });
 </script>

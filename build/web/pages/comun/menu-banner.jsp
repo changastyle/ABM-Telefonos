@@ -1,4 +1,4 @@
-<div class="menu-banner col-xs-12">
+<div class="menu-banner col-sm-12 col-md-12 col-lg-12 hidden-xs"  >
     
     <!-- WRAP-MENU:-->
     <div class="col-xs-2 wrap-menu-encabezado-y-lista"  ng-repeat="menu in arrMenusBanner" ng-mouseleave="leaveMenu(menu.id)">

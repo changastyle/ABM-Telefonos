@@ -4,6 +4,7 @@
     <%@include file="banner-mid.jsp" %>
     <%@include file="banner-der.jsp" %>
     <%@include file="menu-banner.jsp" %>
+    <%@include file="menu-banner_mobile.jsp" %>
     
 </div>
 <style>
