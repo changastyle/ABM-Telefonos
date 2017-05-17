@@ -1,4 +1,4 @@
-package daos;
+package dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import javax.persistence.Query;
 
 public class DAOEclipse
 {
-    private static final String PERSISTENCE_UNIT_NAME = "GenericPU";
+    private static final String PERSISTENCE_UNIT_NAME = "TelefonosPU";
     
     public static List findAllByJPQL(String jpql)
     {
