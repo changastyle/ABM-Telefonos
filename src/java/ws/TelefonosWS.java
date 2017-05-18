@@ -26,6 +26,7 @@ public class TelefonosWS
         
         if(nombre != null && telefono != null)
         {
+            nombre = Encoding.fix(nombre);
             Telefono nuevoTelefono = new Telefono(nombre, telefono);
             agrego = dao.DAOEclipse.update(nuevoTelefono);
         }
@@ -43,8 +44,9 @@ public class TelefonosWS
             
             if(telefonoDB != null)
             {
-                 if(nombre != null && telefono != null)
+                if(nombre != null && telefono != null)
                 {
+                    nombre = Encoding.fix(nombre);
                     telefonoDB.setNombre(nombre);
                     telefonoDB.setTelefono(telefono);
                     modifico = dao.DAOEclipse.update(telefonoDB);

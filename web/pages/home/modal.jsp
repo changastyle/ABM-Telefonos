@@ -14,7 +14,7 @@
             <div class="col-xs-12" ng-hide="agregandoTelefono || editandoTelefono">
                 <div class="form-group" ng-show="modoEdit">
                     <label>ID</label>
-                    <input type="text" class="form-control" ng-model="nuevoTelefono.id"  disabled>
+                    <input type="text" id="input-nombre" class="form-control" ng-model="nuevoTelefono.id"  disabled>
                 </div>
                 <div class="form-group">
                     <label>Nombre:</label>

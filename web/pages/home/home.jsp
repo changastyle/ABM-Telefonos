@@ -133,11 +133,16 @@
         <div class="contenedor-padre col-xs-12">
             <div class="contenedor col-xs-8 col-xs-offset-2">
                 <!-- TABLA DE TELEFONOS:-->
-                <h3>Listado de Telefonos:</h3>
+                <h3 id="h-listado-telefonos">Listado de Telefonos:</h3>
                 <div class="input-busqueda row" style="margin-bottom:25px;">
                     <div class="form-group">
-                        <div class="col-xs-10" >
-                            <input type="text" class="form-control " placeholder="Busca un telefono rapidamente" ng-model="busqueda">
+                        <div class=" col-xs-10 " >
+                            <div class="input-group">
+                                <input type="text" class="form-control " id="barraBusqueda" placeholder="Busca un telefono rapidamente" ng-model="busqueda" autofocus>
+                                <span class="input-group-addon" id="sizing-addon1" ng-click="limpiarBarraBusqueda()">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </span>
+                            </div>
                         </div>
                         <div class="col-xs-2" style="text-align: center;">
                             <button type="submit" class="btn btn-default col-xs-12">
@@ -148,16 +153,16 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" id="tabla-telefonos">
                         <thead>
-                            <th ng-click="ordenarPor('telefono.id')" style="cursor:pointer">
+                            <th ng-click="ordenarPor('id')" style="cursor:pointer">
                                 # ID
                             </th>
-                            <th ng-click="ordenarPor('telefono.nombre')" style="cursor:pointer">
+                            <th ng-click="ordenarPor('nombre')" style="cursor:pointer">
                                 <span class="glyphicon glyphicon-user"></span>
                                 Nombre
                             </th>
-                            <th ng-click="ordenarPor('telefono.nombre')" style="cursor:pointer" >
+                            <th ng-click="ordenarPor('telefono')" style="cursor:pointer" >
                                 <span class="glyphicon glyphicon-earphone"></span>
                                 <span>Telefono</span>
                             </th>
@@ -209,7 +214,7 @@
         $scope.nuevoTelefono = null;
         $scope.telefonoSeleccionado = null;
         $scope.arrTelefonos = [];
-        $scope.orden = 'id';
+        $scope.orden = 'telefono.nombre';
         $scope.deReversaMami = false;
         
         $scope.init = function()
@@ -355,6 +360,9 @@
         {
             $("#myModal").modal();
             $scope.modoEdit = edit;
+            
+            $("#input-nombre").focus();
+            
             if(!edit)
             {
                 $scope.nuevoTelefono = null;
@@ -364,7 +372,42 @@
         {
             $("#myModal").modal('hide');
             $scope.modoEdit = false;
+            
+            $("#barraBusqueda").focus();
+            
         }
+        $scope.limpiarBarraBusqueda = function()
+        {
+            $scope.busqueda = "";
+        }
+        $scope.scrolearAlDiv = function(idDiv)
+        {
+            console.log("debo scrollear: " + $(window).scrollTop()  + " | " + $('#'+ idDiv).offset().top);
+
+            //PONGO ESTE IF PARA QUE NO SE QUEDE BUGEADO SCROLEANDO AL DOPE:
+            if($(window).scrollTop() < $('#'+ idDiv).offset().top)
+            {
+
+                $('html, body').animate(
+                {
+                    scrollTop: $('#'+ idDiv).offset().top
+                },
+                'slow').promise().done(function() 
+                { 
+                    console.log("TERMINE DE SCROLEAR AUTOMATICAMENTE.");
+                });
+            }
+
+        }
+        $(document).ready(function()
+        {
+            $("#barraBusqueda").keypress(function()
+            {
+                console.log("tecla presionada");
+                $scope.scrolearAlDiv("h-listado-telefonos"); 
+            });
+        });
+        
     });
     </script>
 </html>
