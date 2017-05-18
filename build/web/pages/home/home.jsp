@@ -79,7 +79,7 @@
             }
             tbody tr:hover
             {
-                transform: scale(1.07);
+                //transform: scale(1.07);
                 transition: 0.5s;
                 color:white;
                 background-color:#2DB2A4;
@@ -112,6 +112,28 @@
             padding: 18px;
             font-size: 25px;
             letter-spacing: 10px;
+          }
+          .bolita
+          {
+              position: fixed;
+              bottom:25px;
+              right: 25px;
+              background-color: #2DB2A4;
+              color:white;
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+              cursor: pointer;
+              padding-top:8px;
+              padding-left:14px;
+              font-size: 24px;
+              transition: 0.8s;
+              z-index: 1000;
+          }
+          .bolita:hover
+          {
+              transfor:scale(1.5);
+              transition: 0.8s;
           }
         </style>
     </head>
@@ -204,6 +226,12 @@
             </div>
         </div>
         
+        
+        <!-- BOLITA :-->
+        <div class="bolita" ng-click="bolitaClick()" hidden data-toggle="tooltip" title="Ir arriba!">
+            <span class="glyphicon glyphicon-chevron-up" ng-click="bolitaClick()"></span>
+        </div>
+        
         <!-- MODAL:-->
         <%@include file="modal.jsp" %>
     </body>
@@ -214,7 +242,7 @@
         $scope.nuevoTelefono = null;
         $scope.telefonoSeleccionado = null;
         $scope.arrTelefonos = [];
-        $scope.orden = 'telefono.nombre';
+        $scope.orden = 'nombre';
         $scope.deReversaMami = false;
         
         $scope.init = function()
@@ -385,18 +413,14 @@
             console.log("debo scrollear: " + $(window).scrollTop()  + " | " + $('#'+ idDiv).offset().top);
 
             //PONGO ESTE IF PARA QUE NO SE QUEDE BUGEADO SCROLEANDO AL DOPE:
-            if($(window).scrollTop() < $('#'+ idDiv).offset().top)
-            {
+            altura = parseInt($('#'+ idDiv).offset().top) - 160;
 
                 $('html, body').animate(
                 {
-                    scrollTop: $('#'+ idDiv).offset().top
-                },
-                'slow').promise().done(function() 
+                    scrollTop: altura
+                },'slow').promise().done(function() 
                 { 
-                    console.log("TERMINE DE SCROLEAR AUTOMATICAMENTE.");
                 });
-            }
 
         }
         $(document).ready(function()
@@ -406,7 +430,23 @@
                 console.log("tecla presionada");
                 $scope.scrolearAlDiv("h-listado-telefonos"); 
             });
+            $(document).on( 'scroll', function()
+            {
+                //console.log('Event Fired: ' + document.body.scrollTop);
+                if(parseInt(document.body.scrollTop)> 450)
+                {
+                    $(".bolita").show();
+                }else
+                {
+                    $(".bolita").hide();
+                    
+                }
+            });
         });
+        $scope.bolitaClick = function()
+        {
+            $scope.scrolearAlDiv("h-listado-telefonos"); 
+        }
         
     });
     </script>
