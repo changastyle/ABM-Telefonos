@@ -194,7 +194,9 @@
                             <tr ng-repeat="telefono in arrTelefonos | filter: busqueda | orderBy : orden : deReversaMami" class="item-telefono">
                                 <td ng-click="seleccionarTelefono(telefono)" data-toggle="tooltip" title="Editar">{{telefono.id}}</td>
                                 <td ng-click="seleccionarTelefono(telefono)">{{telefono.nombre}}</td>
-                                <td ng-click="seleccionarTelefono(telefono)">{{telefono.telefono}}</td>
+                                <td>
+                                    <a ng-click="openWPP('https://api.whatsapp.com/send?phone=' + telefono.telefonoWPP )">{{telefono.telefono}}</a>
+                                </td>
                                 <td>
                                     <button class="btn btn-default"  ng-click="rmTelefono(telefono)" style="z-index: 100">
                                         <span class="glyphicon glyphicon-trash"></span>
@@ -248,6 +250,12 @@
         $scope.init = function()
         {
             $scope.findTelefonos();
+        }
+        $scope.openWPP = function(link)
+        {
+            console.log("abriendo wpp: " + link)
+            window.open(link,'_blank');
+            window.open(link);
         }
         $scope.ordenarPor = function(campo)
         {

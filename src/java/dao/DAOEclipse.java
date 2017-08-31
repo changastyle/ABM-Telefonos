@@ -9,7 +9,7 @@ import javax.persistence.Query;
 
 public class DAOEclipse
 {
-    private static final String PERSISTENCE_UNIT_NAME = "TelefonosPU";
+    private static final String PERSISTENCE_UNIT_NAME = "ABMTelefonosPU";
     
     public static List findAllByJPQL(String jpql)
     {
